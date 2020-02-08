@@ -5,10 +5,13 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [floatingpointio/graphql-builder "0.1.9"]
-
-                 [clj-http "3.10.0"]
+                 [ntestoc3/common "0.2.0-SNAPSHOT"]
                  [cheshire "5.8.1"]
                  ]
+  :profiles {:dev {:dependencies [[midje "1.9.9" :exclusions [org.clojure/clojure]]
+                                  ]
+                   :plugins [[lein-midje "3.2.1"]]}
+             :uberjar {:aot :all}}
   :main ^:skip-aot hackerone.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  )

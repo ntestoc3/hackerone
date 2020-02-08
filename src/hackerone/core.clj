@@ -2,12 +2,14 @@
   (:require [graphql-builder.parser :refer [defgraphql]]
             [graphql-builder.core :as graphql]
             [graphql-builder.util :as graphql-util]
+            [common.http :as http]
             [clj-http.client :as client]
+            [clojure.edn :as edn]
             [cheshire.core :as json])
   (:gen-class))
 
-(defmacro trans-fn
-  ""
+(defmacro ->graphql-exp
+  "graphql表达式转换"
   [form]
   (letfn [(trans-form [form]
             ;; (prn "trans form:" form "exp:" (type (first form)))
@@ -29,44 +31,31 @@
                 result)))]
     (trans-form form)))
 
-(comment
-  (trans-fn (:eq 3 2))
-
-  (trans-fn (eq "open" "submission_state"))
-
-  (trans-fn (is_null false "id" "submission_state"))
-
-  (trans-fn (and (:neq "id" "5") (or (:is_null false "id")(:eq 3 2))))
-
-  (trans-fn (and (or (eq "open" "submission_state")
-                     (eq "api_only" "submission_state")
-                     (is_null false "id" "external_program"))
-                 (is_null false "id" "external_program")
-                 (or (neq "sandboxed" "state")
-                     (neq "soft_launched" "state")
-                     (is_null false "id" "external_program"))))
-
-  )
-
-
 (defgraphql directory-query "directory.graphql")
 
-(def dir-query (graphql/query-map directory-query {:where {:and []}}))
+(defn get-graphql
+  [querys operation variables]
+  (with-redefs-fn {#'graphql-util/variables->graphql
+                   (fn [vars]
+                     (graphql-util/transform-keys name vars))}
+    (fn []
+      (-> ((get-in querys [:query operation]) variables)
+          :graphql))))
 
-(with-redefs-fn {#'graphql-util/variables->graphql
-                 (fn [vars]
-                   (graphql-util/transform-keys name vars))}
-  #((get-in dir-query [:query :directory-query])
-    {:first 25
-     :secureOrderBy {:started_accepting_at {:_direction "DESC"}}
-     :where (trans-fn (and (or (eq "open" "submission_state")
-                               (eq "api_only" "submission_state")
-                               (is_null false "id" "external_program"))
-                           (is_null true "id" "external_program")
-                           (or (and (neq "sandboxed" "state")
-                                    (neq "soft_launched" "state"))
-                               (is_null false "id" "external_program"))))
-     }))
+(def dir-query (graphql/query-map directory-query))
+(get-graphql dir-query
+             :directory-query
+             {:first 25
+              :secureOrderBy {:started_accepting_at {:_direction "DESC"}}
+              :where (->graphql-exp (and (or (eq "open" "submission_state")
+                                             (eq "api_only" "submission_state")
+                                             (is_null false "id" "external_program"))
+                                         (is_null true "id" "external_program")
+                                         (or (and (neq "sandboxed" "state")
+                                                  (neq "soft_launched" "state"))
+                                             (is_null false "id" "external_program"))))
+              })
+
 
 (defn -main
   "I don't do a whole lot ... yet."
