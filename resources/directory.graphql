@@ -22,7 +22,8 @@ query DirectoryQuery($first: Int, $cursor: String, $secureOrderBy: FiltersTeamFi
         ...TeamTableAverageBounty
         __typename
       }
-      __typename
+      __typenam
+      e
     }
     __typename
   }
@@ -76,4 +77,56 @@ fragment TeamTableAverageBounty on Team {
   average_bounty_lower_amount
   average_bounty_upper_amount
   __typename
+}
+query Team_assets($first: Int, $handler: String) {
+  team: team(handle: $handler) {
+    handle
+    scope_version: structured_scope_versions(
+      archived: false
+    ) {
+      max_updated_at
+    }
+    in_scopes: structured_scopes(
+      first: $first
+      archived: false
+      eligible_for_submission: true
+    ) {
+      edges {
+        node {
+          id
+          asset_type
+          asset_identifier
+          rendered_instruction
+          max_severity
+          eligible_for_bounty
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+    out_scopes: structured_scopes(
+      first: $first
+      archived: false
+      eligible_for_submission: false
+    ) {
+      edges {
+        node {
+          id
+          asset_type
+          asset_identifier
+          rendered_instruction
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+    id
+  }
+  id
 }

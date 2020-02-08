@@ -7,6 +7,7 @@
                  [floatingpointio/graphql-builder "0.1.9"]
                  [ntestoc3/common "0.2.0-SNAPSHOT"]
                  [cheshire "5.8.1"]
+                 [com.rpl/specter "1.1.3"]
                  ]
   :profiles {:dev {:dependencies [[midje "1.9.9" :exclusions [org.clojure/clojure]]
                                   ]
