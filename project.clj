@@ -5,7 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [floatingpointio/graphql-builder "0.1.9"]
-                 [ntestoc3/common "1.2.0-SNAPSHOT"]
+                 [ntestoc3/common "1.2.1-SNAPSHOT"]
                  [cheshire "5.8.1"]
                  [com.rpl/specter "1.1.3"]
                  ]

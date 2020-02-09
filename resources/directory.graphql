@@ -70,8 +70,8 @@ fragment TeamTableAverageBounty on Team {
   average_bounty_upper_amount
   __typename
 }
-query Team_assets($first: Int, $handler: String) {
-  team: team(handle: $handler) {
+query Team_assets($first: Int!, $handle: String!) {
+  team: team(handle: $handle) {
     handle
     scope_version: structured_scope_versions(
       archived: false
