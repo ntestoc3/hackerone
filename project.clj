@@ -8,6 +8,9 @@
                  [ntestoc3/common "1.2.1-SNAPSHOT"]
                  [cheshire "5.8.1"]
                  [com.rpl/specter "1.1.3"]
+
+                 [juxt/crux-core "20.01-1.6.2-alpha"] ;; db
+                 [juxt/crux-rocksdb "20.01-1.6.2-alpha"]
                  ]
   :profiles {:dev {:dependencies [[midje "1.9.9" :exclusions [org.clojure/clojure]]
                                   ]
