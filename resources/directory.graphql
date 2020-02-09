@@ -1,11 +1,5 @@
 query DirectoryQuery($first: Int, $cursor: String, $secureOrderBy: FiltersTeamFilterOrder, $where: FiltersTeamFilterInput) {
-  me {
-    id
-    edit_unclaimed_profiles
-    h1_pentester
-    __typename
-  }
-  teams(first: $first, after: $cursor, secure_order_by: $secureOrderBy, where: $where) {
+ teams(first: $first, after: $cursor, secure_order_by: $secureOrderBy, where: $where) {
     pageInfo {
       endCursor
       hasNextPage
@@ -14,7 +8,6 @@ query DirectoryQuery($first: Int, $cursor: String, $secureOrderBy: FiltersTeamFi
     edges {
       node {
         id
-        bookmarked
         ...TeamTableResolvedReports
         ...TeamTableAvatarAndTitle
         ...TeamTableLaunchDate
@@ -22,8 +15,7 @@ query DirectoryQuery($first: Int, $cursor: String, $secureOrderBy: FiltersTeamFi
         ...TeamTableAverageBounty
         __typename
       }
-      __typenam
-      e
+      __typename
     }
     __typename
   }

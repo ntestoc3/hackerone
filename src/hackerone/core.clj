@@ -42,30 +42,35 @@
       (-> ((get-in querys [:query operation]) variables)
           :graphql))))
 
+(defn hackerone-graphql-query
+  [querys operation args]
+  (let [body (get-graphql querys operation args)]
+    (some-> (http/post
+             "https://hackerone.com/graphql"
+             (http/build-http-opt {:content-type :json
+                                   :body (json/encode body)
+                                   :cookie-policy :standard
+                                   :as :json
+                                   :headers {"Referer" "https://hackerone.com/directory/programs"}}))
+            :body
+            :data)))
+
 (defgraphql directory-query "directory.graphql")
-(def dir-query (graphql/query-map directory-query))
-(def query (get-graphql dir-query
-                        :directory-query
-                        {:first 25
-                         :secureOrderBy {:started_accepting_at {:_direction "DESC"}}
-                         :where (->graphql-exp '(and (or (eq "open" "submission_state")
-                                                         (eq "api_only" "submission_state")
-                                                         (is_null false "id" "external_program"))
-                                                     (is_null true "id" "external_program")
-                                                     (or (and (neq "sandboxed" "state")
-                                                              (neq "soft_launched" "state"))
-                                                         (is_null false "id" "external_program"))))
-                         }))
+(def program-query (graphql/query-map directory-query))
+(def dirs (hackerone-graphql-query program-query
+                                   :directory-query
+                                   {:first 25
+                                    :secureOrderBy {:started_accepting_at {:_direction "DESC"}}
+                                    :where (->graphql-exp '(and (or (eq "open" "submission_state")
+                                                                    (eq "api_only" "submission_state")
+                                                                    (is_null false "id" "external_program"))
+                                                                (is_null true "id" "external_program")
+                                                                (or (and (neq "sandboxed" "state")
+                                                                         (neq "soft_launched" "state"))
+                                                                    (is_null false "id" "external_program"))))
+                                    }))
 
 
-(def r (http/post
-        "https://hackerone.com/graphql"
-        (merge {:content-type :json
-                :body (json/encode query)
-                :cookie-policy :standard
-                :as :json}
-               (http/build-header
-                {"Referer" "https://hackerone.com/directory/programs"}))))
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
