@@ -101,12 +101,13 @@
     (let [result (page-fn args)]
       (when result
         (cons result
-             (do
-               (when delay (Thread/sleep delay))
-               (page-seq page-fn
-                         (next-args-fn result)
-                         next-args-fn
-                         delay))))))))
+              (do
+                (when delay (Thread/sleep delay))
+                (when-let [next-args (next-args-fn result)]
+                  (page-seq page-fn
+                            next-args
+                            next-args-fn
+                            delay)))))))))
 
 (defn get-page-cursor
   [page-info]

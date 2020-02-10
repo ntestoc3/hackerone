@@ -83,6 +83,22 @@
 
   (crux/entity (crux/db my-node) :hackerone.program/python)
 
+  (def prog-scopes (crux/q (crux/db my-node)
+                           '{:find [e scopes]
+                             :where [[e :entity/name :program/scope]
+                                     [e :in-scopes scopes]]}))
+
+  (defn find-url-info [url]
+    (filter #(-> (second %)
+                 :asset_identifier
+                 (= url))
+            prog-scopes))
+
+  ;; in scopes infos
+  (crux/q (crux/db my-node)
+          '{:find [scopes]
+            :where [[e :entity/name :program/scope]
+                    [e :in-scopes scopes]]})
 
   (crux/q (crux/db my-node)
           '{:find [e]
