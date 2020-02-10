@@ -1,89 +1,89 @@
-2020/02/10-17:07:46.286401 7f2616ff9700 RocksDB version: 6.2.2
-2020/02/10-17:07:46.286442 7f2616ff9700 Git sha rocksdb_build_git_sha:
-2020/02/10-17:07:46.286445 7f2616ff9700 Compile date Aug  3 2019
-2020/02/10-17:07:46.286447 7f2616ff9700 DB SUMMARY
-2020/02/10-17:07:46.286478 7f2616ff9700 CURRENT file:  CURRENT
-2020/02/10-17:07:46.286480 7f2616ff9700 IDENTITY file:  IDENTITY
-2020/02/10-17:07:46.286484 7f2616ff9700 MANIFEST file:  MANIFEST-000011 size: 179 Bytes
-2020/02/10-17:07:46.286487 7f2616ff9700 SST files in /home/ntestu/bugs/hackerone/data/db dir, Total Num: 2, files: 000007.sst 000010.sst 
-2020/02/10-17:07:46.286489 7f2616ff9700 Write Ahead Log file in /home/ntestu/bugs/hackerone/data/db: 000012.log size: 2619 ; 
-2020/02/10-17:07:46.286491 7f2616ff9700                         Options.error_if_exists: 0
-2020/02/10-17:07:46.286493 7f2616ff9700                       Options.create_if_missing: 1
-2020/02/10-17:07:46.286494 7f2616ff9700                         Options.paranoid_checks: 1
-2020/02/10-17:07:46.286496 7f2616ff9700                                     Options.env: 0x7f25aedb83e0
-2020/02/10-17:07:46.286497 7f2616ff9700                                Options.info_log: 0x7f25fd41ea50
-2020/02/10-17:07:46.286499 7f2616ff9700                Options.max_file_opening_threads: 16
-2020/02/10-17:07:46.286500 7f2616ff9700                              Options.statistics: (nil)
-2020/02/10-17:07:46.286502 7f2616ff9700                               Options.use_fsync: 0
-2020/02/10-17:07:46.286503 7f2616ff9700                       Options.max_log_file_size: 0
-2020/02/10-17:07:46.286504 7f2616ff9700                  Options.max_manifest_file_size: 1073741824
-2020/02/10-17:07:46.286506 7f2616ff9700                   Options.log_file_time_to_roll: 0
-2020/02/10-17:07:46.286507 7f2616ff9700                       Options.keep_log_file_num: 1000
-2020/02/10-17:07:46.286509 7f2616ff9700                    Options.recycle_log_file_num: 0
-2020/02/10-17:07:46.286510 7f2616ff9700                         Options.allow_fallocate: 1
-2020/02/10-17:07:46.286511 7f2616ff9700                        Options.allow_mmap_reads: 0
-2020/02/10-17:07:46.286512 7f2616ff9700                       Options.allow_mmap_writes: 0
-2020/02/10-17:07:46.286514 7f2616ff9700                        Options.use_direct_reads: 0
-2020/02/10-17:07:46.286515 7f2616ff9700                        Options.use_direct_io_for_flush_and_compaction: 0
-2020/02/10-17:07:46.286516 7f2616ff9700          Options.create_missing_column_families: 0
-2020/02/10-17:07:46.286518 7f2616ff9700                              Options.db_log_dir: 
-2020/02/10-17:07:46.286519 7f2616ff9700                                 Options.wal_dir: /home/ntestu/bugs/hackerone/data/db
-2020/02/10-17:07:46.286520 7f2616ff9700                Options.table_cache_numshardbits: 6
-2020/02/10-17:07:46.286521 7f2616ff9700                      Options.max_subcompactions: 1
-2020/02/10-17:07:46.286523 7f2616ff9700                  Options.max_background_flushes: -1
-2020/02/10-17:07:46.286524 7f2616ff9700                         Options.WAL_ttl_seconds: 0
-2020/02/10-17:07:46.286525 7f2616ff9700                       Options.WAL_size_limit_MB: 0
-2020/02/10-17:07:46.286527 7f2616ff9700             Options.manifest_preallocation_size: 4194304
-2020/02/10-17:07:46.286528 7f2616ff9700                     Options.is_fd_close_on_exec: 1
-2020/02/10-17:07:46.286529 7f2616ff9700                   Options.advise_random_on_open: 1
-2020/02/10-17:07:46.286530 7f2616ff9700                    Options.db_write_buffer_size: 0
-2020/02/10-17:07:46.286532 7f2616ff9700                    Options.write_buffer_manager: 0x7f25fcfde820
-2020/02/10-17:07:46.286533 7f2616ff9700         Options.access_hint_on_compaction_start: 1
-2020/02/10-17:07:46.286534 7f2616ff9700  Options.new_table_reader_for_compaction_inputs: 0
-2020/02/10-17:07:46.286536 7f2616ff9700           Options.random_access_max_buffer_size: 1048576
-2020/02/10-17:07:46.286537 7f2616ff9700                      Options.use_adaptive_mutex: 0
-2020/02/10-17:07:46.286538 7f2616ff9700                            Options.rate_limiter: (nil)
-2020/02/10-17:07:46.286540 7f2616ff9700     Options.sst_file_manager.rate_bytes_per_sec: 0
-2020/02/10-17:07:46.286549 7f2616ff9700                       Options.wal_recovery_mode: 2
-2020/02/10-17:07:46.286550 7f2616ff9700                  Options.enable_thread_tracking: 0
-2020/02/10-17:07:46.286552 7f2616ff9700                  Options.enable_pipelined_write: 0
-2020/02/10-17:07:46.286553 7f2616ff9700         Options.allow_concurrent_memtable_write: 1
-2020/02/10-17:07:46.286554 7f2616ff9700      Options.enable_write_thread_adaptive_yield: 1
-2020/02/10-17:07:46.286555 7f2616ff9700             Options.write_thread_max_yield_usec: 100
-2020/02/10-17:07:46.286557 7f2616ff9700            Options.write_thread_slow_yield_usec: 3
-2020/02/10-17:07:46.286558 7f2616ff9700                               Options.row_cache: None
-2020/02/10-17:07:46.286559 7f2616ff9700                              Options.wal_filter: None
-2020/02/10-17:07:46.286561 7f2616ff9700             Options.avoid_flush_during_recovery: 0
-2020/02/10-17:07:46.286562 7f2616ff9700             Options.allow_ingest_behind: 0
-2020/02/10-17:07:46.286563 7f2616ff9700             Options.preserve_deletes: 0
-2020/02/10-17:07:46.286564 7f2616ff9700             Options.two_write_queues: 0
-2020/02/10-17:07:46.286566 7f2616ff9700             Options.manual_wal_flush: 0
-2020/02/10-17:07:46.286567 7f2616ff9700             Options.atomic_flush: 0
-2020/02/10-17:07:46.286568 7f2616ff9700             Options.avoid_unnecessary_blocking_io: 0
-2020/02/10-17:07:46.286569 7f2616ff9700             Options.max_background_jobs: 2
-2020/02/10-17:07:46.286571 7f2616ff9700             Options.max_background_compactions: -1
-2020/02/10-17:07:46.286572 7f2616ff9700             Options.avoid_flush_during_shutdown: 0
-2020/02/10-17:07:46.286573 7f2616ff9700           Options.writable_file_max_buffer_size: 1048576
-2020/02/10-17:07:46.286574 7f2616ff9700             Options.delayed_write_rate : 16777216
-2020/02/10-17:07:46.286576 7f2616ff9700             Options.max_total_wal_size: 0
-2020/02/10-17:07:46.286577 7f2616ff9700             Options.delete_obsolete_files_period_micros: 21600000000
-2020/02/10-17:07:46.286578 7f2616ff9700                   Options.stats_dump_period_sec: 600
-2020/02/10-17:07:46.286580 7f2616ff9700                 Options.stats_persist_period_sec: 600
-2020/02/10-17:07:46.286581 7f2616ff9700                 Options.stats_history_buffer_size: 1048576
-2020/02/10-17:07:46.286582 7f2616ff9700                          Options.max_open_files: -1
-2020/02/10-17:07:46.286584 7f2616ff9700                          Options.bytes_per_sync: 0
-2020/02/10-17:07:46.286585 7f2616ff9700                      Options.wal_bytes_per_sync: 0
-2020/02/10-17:07:46.286586 7f2616ff9700                   Options.strict_bytes_per_sync: 0
-2020/02/10-17:07:46.286587 7f2616ff9700       Options.compaction_readahead_size: 0
-2020/02/10-17:07:46.286589 7f2616ff9700 Compression algorithms supported:
-2020/02/10-17:07:46.286590 7f2616ff9700 	kZSTDNotFinalCompression supported: 1
-2020/02/10-17:07:46.286592 7f2616ff9700 	kZSTD supported: 1
-2020/02/10-17:07:46.286594 7f2616ff9700 	kXpressCompression supported: 0
-2020/02/10-17:07:46.286595 7f2616ff9700 	kLZ4HCCompression supported: 1
-2020/02/10-17:07:46.286596 7f2616ff9700 	kLZ4Compression supported: 1
-2020/02/10-17:07:46.286598 7f2616ff9700 	kBZip2Compression supported: 1
-2020/02/10-17:07:46.286599 7f2616ff9700 	kZlibCompression supported: 1
-2020/02/10-17:07:46.286600 7f2616ff9700 	kSnappyCompression supported: 1
-2020/02/10-17:07:46.286602 7f2616ff9700 Fast CRC32 supported: Not supported on x86
-2020/02/10-17:07:46.286646 7f2616ff9700 [/db_impl.cc:392] Shutdown: canceling all background work
-2020/02/10-17:07:46.286676 7f2616ff9700 [/db_impl.cc:565] Shutdown complete
+2020/02/10-19:45:13.083917 7f257bcfc700 RocksDB version: 6.2.2
+2020/02/10-19:45:13.083989 7f257bcfc700 Git sha rocksdb_build_git_sha:
+2020/02/10-19:45:13.083994 7f257bcfc700 Compile date Aug  3 2019
+2020/02/10-19:45:13.083998 7f257bcfc700 DB SUMMARY
+2020/02/10-19:45:13.084054 7f257bcfc700 CURRENT file:  CURRENT
+2020/02/10-19:45:13.084058 7f257bcfc700 IDENTITY file:  IDENTITY
+2020/02/10-19:45:13.084064 7f257bcfc700 MANIFEST file:  MANIFEST-000011 size: 179 Bytes
+2020/02/10-19:45:13.084068 7f257bcfc700 SST files in /home/ntestu/bugs/hackerone/data/db dir, Total Num: 2, files: 000007.sst 000010.sst 
+2020/02/10-19:45:13.084071 7f257bcfc700 Write Ahead Log file in /home/ntestu/bugs/hackerone/data/db: 000012.log size: 2186883 ; 
+2020/02/10-19:45:13.084075 7f257bcfc700                         Options.error_if_exists: 0
+2020/02/10-19:45:13.084078 7f257bcfc700                       Options.create_if_missing: 1
+2020/02/10-19:45:13.084080 7f257bcfc700                         Options.paranoid_checks: 1
+2020/02/10-19:45:13.084082 7f257bcfc700                                     Options.env: 0x7f25aedb83e0
+2020/02/10-19:45:13.084085 7f257bcfc700                                Options.info_log: 0x7f251407adb0
+2020/02/10-19:45:13.084087 7f257bcfc700                Options.max_file_opening_threads: 16
+2020/02/10-19:45:13.084089 7f257bcfc700                              Options.statistics: (nil)
+2020/02/10-19:45:13.084092 7f257bcfc700                               Options.use_fsync: 0
+2020/02/10-19:45:13.084094 7f257bcfc700                       Options.max_log_file_size: 0
+2020/02/10-19:45:13.084096 7f257bcfc700                  Options.max_manifest_file_size: 1073741824
+2020/02/10-19:45:13.084098 7f257bcfc700                   Options.log_file_time_to_roll: 0
+2020/02/10-19:45:13.084100 7f257bcfc700                       Options.keep_log_file_num: 1000
+2020/02/10-19:45:13.084102 7f257bcfc700                    Options.recycle_log_file_num: 0
+2020/02/10-19:45:13.084105 7f257bcfc700                         Options.allow_fallocate: 1
+2020/02/10-19:45:13.084107 7f257bcfc700                        Options.allow_mmap_reads: 0
+2020/02/10-19:45:13.084109 7f257bcfc700                       Options.allow_mmap_writes: 0
+2020/02/10-19:45:13.084111 7f257bcfc700                        Options.use_direct_reads: 0
+2020/02/10-19:45:13.084113 7f257bcfc700                        Options.use_direct_io_for_flush_and_compaction: 0
+2020/02/10-19:45:13.084115 7f257bcfc700          Options.create_missing_column_families: 0
+2020/02/10-19:45:13.084117 7f257bcfc700                              Options.db_log_dir: 
+2020/02/10-19:45:13.084119 7f257bcfc700                                 Options.wal_dir: /home/ntestu/bugs/hackerone/data/db
+2020/02/10-19:45:13.084121 7f257bcfc700                Options.table_cache_numshardbits: 6
+2020/02/10-19:45:13.084123 7f257bcfc700                      Options.max_subcompactions: 1
+2020/02/10-19:45:13.084126 7f257bcfc700                  Options.max_background_flushes: -1
+2020/02/10-19:45:13.084128 7f257bcfc700                         Options.WAL_ttl_seconds: 0
+2020/02/10-19:45:13.084130 7f257bcfc700                       Options.WAL_size_limit_MB: 0
+2020/02/10-19:45:13.084132 7f257bcfc700             Options.manifest_preallocation_size: 4194304
+2020/02/10-19:45:13.084134 7f257bcfc700                     Options.is_fd_close_on_exec: 1
+2020/02/10-19:45:13.084136 7f257bcfc700                   Options.advise_random_on_open: 1
+2020/02/10-19:45:13.084138 7f257bcfc700                    Options.db_write_buffer_size: 0
+2020/02/10-19:45:13.084140 7f257bcfc700                    Options.write_buffer_manager: 0x7f25140799c0
+2020/02/10-19:45:13.084142 7f257bcfc700         Options.access_hint_on_compaction_start: 1
+2020/02/10-19:45:13.084145 7f257bcfc700  Options.new_table_reader_for_compaction_inputs: 0
+2020/02/10-19:45:13.084147 7f257bcfc700           Options.random_access_max_buffer_size: 1048576
+2020/02/10-19:45:13.084149 7f257bcfc700                      Options.use_adaptive_mutex: 0
+2020/02/10-19:45:13.084151 7f257bcfc700                            Options.rate_limiter: (nil)
+2020/02/10-19:45:13.084153 7f257bcfc700     Options.sst_file_manager.rate_bytes_per_sec: 0
+2020/02/10-19:45:13.084168 7f257bcfc700                       Options.wal_recovery_mode: 2
+2020/02/10-19:45:13.084171 7f257bcfc700                  Options.enable_thread_tracking: 0
+2020/02/10-19:45:13.084173 7f257bcfc700                  Options.enable_pipelined_write: 0
+2020/02/10-19:45:13.084175 7f257bcfc700         Options.allow_concurrent_memtable_write: 1
+2020/02/10-19:45:13.084177 7f257bcfc700      Options.enable_write_thread_adaptive_yield: 1
+2020/02/10-19:45:13.084179 7f257bcfc700             Options.write_thread_max_yield_usec: 100
+2020/02/10-19:45:13.084181 7f257bcfc700            Options.write_thread_slow_yield_usec: 3
+2020/02/10-19:45:13.084183 7f257bcfc700                               Options.row_cache: None
+2020/02/10-19:45:13.084185 7f257bcfc700                              Options.wal_filter: None
+2020/02/10-19:45:13.084187 7f257bcfc700             Options.avoid_flush_during_recovery: 0
+2020/02/10-19:45:13.084189 7f257bcfc700             Options.allow_ingest_behind: 0
+2020/02/10-19:45:13.084191 7f257bcfc700             Options.preserve_deletes: 0
+2020/02/10-19:45:13.084193 7f257bcfc700             Options.two_write_queues: 0
+2020/02/10-19:45:13.084195 7f257bcfc700             Options.manual_wal_flush: 0
+2020/02/10-19:45:13.084197 7f257bcfc700             Options.atomic_flush: 0
+2020/02/10-19:45:13.084199 7f257bcfc700             Options.avoid_unnecessary_blocking_io: 0
+2020/02/10-19:45:13.084202 7f257bcfc700             Options.max_background_jobs: 2
+2020/02/10-19:45:13.084204 7f257bcfc700             Options.max_background_compactions: -1
+2020/02/10-19:45:13.084206 7f257bcfc700             Options.avoid_flush_during_shutdown: 0
+2020/02/10-19:45:13.084208 7f257bcfc700           Options.writable_file_max_buffer_size: 1048576
+2020/02/10-19:45:13.084210 7f257bcfc700             Options.delayed_write_rate : 16777216
+2020/02/10-19:45:13.084212 7f257bcfc700             Options.max_total_wal_size: 0
+2020/02/10-19:45:13.084214 7f257bcfc700             Options.delete_obsolete_files_period_micros: 21600000000
+2020/02/10-19:45:13.084216 7f257bcfc700                   Options.stats_dump_period_sec: 600
+2020/02/10-19:45:13.084219 7f257bcfc700                 Options.stats_persist_period_sec: 600
+2020/02/10-19:45:13.084221 7f257bcfc700                 Options.stats_history_buffer_size: 1048576
+2020/02/10-19:45:13.084223 7f257bcfc700                          Options.max_open_files: -1
+2020/02/10-19:45:13.084225 7f257bcfc700                          Options.bytes_per_sync: 0
+2020/02/10-19:45:13.084227 7f257bcfc700                      Options.wal_bytes_per_sync: 0
+2020/02/10-19:45:13.084229 7f257bcfc700                   Options.strict_bytes_per_sync: 0
+2020/02/10-19:45:13.084231 7f257bcfc700       Options.compaction_readahead_size: 0
+2020/02/10-19:45:13.084233 7f257bcfc700 Compression algorithms supported:
+2020/02/10-19:45:13.084236 7f257bcfc700 	kZSTDNotFinalCompression supported: 1
+2020/02/10-19:45:13.084238 7f257bcfc700 	kZSTD supported: 1
+2020/02/10-19:45:13.084241 7f257bcfc700 	kXpressCompression supported: 0
+2020/02/10-19:45:13.084243 7f257bcfc700 	kLZ4HCCompression supported: 1
+2020/02/10-19:45:13.084245 7f257bcfc700 	kLZ4Compression supported: 1
+2020/02/10-19:45:13.084248 7f257bcfc700 	kBZip2Compression supported: 1
+2020/02/10-19:45:13.084250 7f257bcfc700 	kZlibCompression supported: 1
+2020/02/10-19:45:13.084252 7f257bcfc700 	kSnappyCompression supported: 1
+2020/02/10-19:45:13.084255 7f257bcfc700 Fast CRC32 supported: Not supported on x86
+2020/02/10-19:45:13.084292 7f257bcfc700 [/db_impl.cc:392] Shutdown: canceling all background work
+2020/02/10-19:45:13.084315 7f257bcfc700 [/db_impl.cc:565] Shutdown complete

@@ -155,18 +155,14 @@
 
   (def s1 (get-scope-info (:handle (first ds))))
 
-  (doseq [program (get-all-programs {:asset-type "URL"}
-                                    100
-                                    50)]
-    (Thread/sleep 50)
-    (db/save-program! program (get-scope-info (:handle program))))
-
   )
-
-
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (doseq [program (get-all-programs {:asset-type "URL"}
+                                    100
+                                    50)]
+    (Thread/sleep 50)
+    (db/save-program! program (get-scope-info (:handle program)))))
 

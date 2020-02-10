@@ -3,7 +3,8 @@
             [me.raynes.fs :as fs]
             [lambdaisland.deep-diff :as ddiff]
             [clojure.data :refer [diff]]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [taoensso.timbre :as log])
   (:import [crux.api ICruxAPI]))
 
 (def my-node
@@ -46,6 +47,7 @@
         old-info (crux/entity (crux/db my-node) id)
         last-scope-date (:last-update scope-info)]
     (when-not (submap? program old-info)
+      (log/info :save-program! "new program:" handle)
       (crux/submit-tx
        my-node
        [[:crux.tx/put
@@ -55,6 +57,7 @@
                 program)
          ]]))
     (when-not (= last-scope-date (:last-scope-update old-info))
+      (log/info :save-program! "new program scope:" handle)
       (save-program-scope! handle scope-info))))
 
 (comment
