@@ -8,6 +8,7 @@
                  [ntestoc3/common "1.2.1-SNAPSHOT"]
                  [cheshire "5.8.1"]
                  [com.rpl/specter "1.1.3"]
+                 [lambdaisland/deep-diff "0.0-47"]
 
                  [juxt/crux-core "20.01-1.6.2-alpha"] ;; db
                  [juxt/crux-rocksdb "20.01-1.6.2-alpha"]

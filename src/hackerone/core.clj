@@ -7,7 +7,8 @@
             [clj-http.client :as client]
             [cheshire.core :as json]
             [taoensso.timbre :as log]
-            [com.rpl.specter :refer :all])
+            [com.rpl.specter :refer :all]
+            [hackerone.db :as db])
   (:gen-class))
 
 (defn get-graphql
@@ -22,7 +23,7 @@
 (defn hackerone-graphql-query
   [querys operation args]
   (let [body (get-graphql querys operation args)]
-    (log/info :hackerone-graphql-query args body)
+    (log/trace :hackerone-graphql-query args body)
     (some-> (http/post
              "https://hackerone.com/graphql"
              (http/build-http-opt {:content-type :json
@@ -64,6 +65,7 @@
          active true} :as opt}]
   {:pre [(or (nil? asset-type)
              (valid-assets asset-type))]}
+  (log/info :query-dirs opt)
   (let [args (cond-> {:first first
                       :secureOrderBy {:started_accepting_at {:_direction "DESC"}}
                       :where {"_and"
@@ -113,29 +115,31 @@
 
 (defn get-all-programs
   "获取指定页数的program信息"
-  [opts pages]
-  (some->> (page-seq query-dirs opts
-                     #(some->> (select-one [:teams :pageInfo] %)
-                               get-page-cursor
-                               (hash-map :cursor)
-                               (merge opts))
-                     500)
-           (take pages)
-           (map #(select [:teams :edges ALL :node] %1))
-           (apply concat)))
+  ([opts pages] (get-all-programs opts pages 500))
+  ([opts pages wait-delay]
+   (some->> (page-seq query-dirs opts
+                      #(some->> (select-one [:teams :pageInfo] %)
+                                get-page-cursor
+                                (hash-map :cursor)
+                                (merge opts))
+                      wait-delay)
+            (take pages)
+            (map #(select [:teams :edges ALL :node] %1))
+            (apply concat))))
 
 (defn get-scope-info
   "获取程序的范围信息"
   ([handle] (get-scope-info handle nil))
   ([handle {:keys [first]
             :or {first 500}}]
+   (log/info :get-scope-info handle)
    (let [args {:first first
                :handle handle}
          team-info (hackerone-graphql-query program-query :team-assets args)]
      (when team-info
        {:last-update (select-one [:team :scope_version :max_updated_at] team-info)
-       :in-scopes (select [:team :in_scopes :edges ALL :node] team-info)
-       :out-scopes (select [:team :out_scopes :edges ALL :node] team-info)}))))
+        :in-scopes (select [:team :in_scopes :edges ALL :node] team-info)
+        :out-scopes (select [:team :out_scopes :edges ALL :node] team-info)}))))
 
 (comment
 
@@ -145,13 +149,20 @@
 
   (def ds (get-all-programs {:asset-type "URL"
                              :bounties true}
-                            2))
+                            1))
 
 
-  (def s1 (get-scope-info "pixiv"))
+  (def s1 (get-scope-info (:handle (first ds))))
 
+  (doseq [program (get-all-programs {:asset-type "URL"}
+                                    100
+                                    50)]
+    (Thread/sleep 50)
+    (db/save-program! program (get-scope-info (:handle program))))
 
   )
+
+
 
 (defn -main
   "I don't do a whole lot ... yet."

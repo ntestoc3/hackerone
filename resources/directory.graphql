@@ -7,7 +7,6 @@ query DirectoryQuery($first: Int, $cursor: String, $secureOrderBy: FiltersTeamFi
     }
     edges {
       node {
-        id
         ...TeamTableResolvedReports
         ...TeamTableAvatarAndTitle
         ...TeamTableLaunchDate
@@ -22,14 +21,11 @@ query DirectoryQuery($first: Int, $cursor: String, $secureOrderBy: FiltersTeamFi
 }
 
 fragment TeamTableResolvedReports on Team {
-  id
   resolved_report_count
   __typename
 }
 
 fragment TeamTableAvatarAndTitle on Team {
-  id
-  profile_picture(size: medium)
   name
   handle
   submission_state
@@ -44,27 +40,23 @@ fragment TeamTableAvatarAndTitle on Team {
 }
 
 fragment TeamLinkWithMiniProfile on Team {
-  id
   handle
   name
   __typename
 }
 
 fragment TeamTableLaunchDate on Team {
-  id
   started_accepting_at
   __typename
 }
 
 fragment TeamTableMinimumBounty on Team {
-  id
   currency
   base_bounty
   __typename
 }
 
 fragment TeamTableAverageBounty on Team {
-  id
   currency
   average_bounty_lower_amount
   average_bounty_upper_amount
@@ -85,7 +77,6 @@ query Team_assets($first: Int!, $handle: String!) {
     ) {
       edges {
         node {
-          id
           asset_type
           asset_identifier
           rendered_instruction
@@ -106,7 +97,6 @@ query Team_assets($first: Int!, $handle: String!) {
     ) {
       edges {
         node {
-          id
           asset_type
           asset_identifier
           rendered_instruction
