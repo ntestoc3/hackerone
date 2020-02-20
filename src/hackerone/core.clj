@@ -160,7 +160,7 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (doseq [program (get-all-programs {:asset-type "URL"}
+  #_(doseq [program (get-all-programs {:asset-type "URL"}
                                     100
                                     50)]
     (Thread/sleep 50)

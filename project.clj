@@ -12,6 +12,7 @@
 
                  [juxt/crux-core "20.01-1.6.2-alpha"] ;; db
                  [juxt/crux-rocksdb "20.01-1.6.2-alpha"]
+                 [juxt/crux-kafka "20.01-1.6.2-alpha"]
                  ]
   :profiles {:dev {:dependencies [[midje "1.9.9" :exclusions [org.clojure/clojure]]
                                   ]

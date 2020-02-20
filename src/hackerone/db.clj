@@ -9,10 +9,9 @@
 
 (def my-node
   (crux/start-node
-   {:crux.node/topology 'crux.standalone/topology
-    :crux.node/kv-store 'crux.kv.rocksdb/kv
-    :crux.standalone/event-log-dir "data/event-log"
-    :crux.kv/db-dir "data/db"}))
+   {:crux.node/topology 'crux.kafka/topology
+    :crux.kafka/bootstrap-servers "localhost:9092"
+    }))
 
 (defn make-id
   "构造一个id"
