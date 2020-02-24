@@ -2,16 +2,24 @@
   (:require [crux.api :as crux]
             [me.raynes.fs :as fs]
             [lambdaisland.deep-diff :as ddiff]
+            [java-time]
             [clojure.data :refer [diff]]
             [clojure.java.io :as io]
             [taoensso.timbre :as log])
   (:import [crux.api ICruxAPI]))
 
+(def my-node nil)
 (def my-node
   (crux/start-node
    {:crux.node/topology 'crux.kafka/topology
     :crux.kafka/bootstrap-servers "localhost:9092"
     }))
+
+(def ^crux.api.ICruxAPI node
+  (crux/start-node {:crux.node/topology :crux.kafka/topology
+                    :crux.node/kv-store "crux.kv.memdb/kv"
+                    :crux.kafka/group-id           "node-2"
+                    :crux.kafka/bootstrap-servers "localhost:9092"}))
 
 (defn make-id
   "构造一个id"
@@ -81,9 +89,28 @@
       }
      ]])
 
+  (crux/submit-tx
+   my-node
+   [[:crux.tx/put
+     {:crux.db/id :hackerone.program/ruby
+      :name "ruby"
+      :handle "ruby"
+      :action "do test"
+      }
+     ]])
+
+  (crux/submit-tx
+   my-node
+   [[:crux.tx/put
+     {:crux.db/id :hackerone.program/ruby
+      :name "ruby"
+      :handle "ruby666"
+      }
+     ]])
+
   (crux/history my-node :hackerone.program/ruby)
 
-  (crux/entity (crux/db my-node) :hackerone.program/python)
+  (crux/entity (crux/db my-node) :hackerone.program/ruby)
 
   (def prog-scopes (crux/q (crux/db my-node)
                            '{:find [e scopes]
