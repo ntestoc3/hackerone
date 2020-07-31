@@ -8,18 +8,11 @@
             [taoensso.timbre :as log])
   (:import [crux.api ICruxAPI]))
 
-(def my-node nil)
 (def my-node
   (crux/start-node
    {:crux.node/topology 'crux.kafka/topology
     :crux.kafka/bootstrap-servers "localhost:9092"
     }))
-
-(def ^crux.api.ICruxAPI node
-  (crux/start-node {:crux.node/topology :crux.kafka/topology
-                    :crux.node/kv-store "crux.kv.memdb/kv"
-                    :crux.kafka/group-id           "node-2"
-                    :crux.kafka/bootstrap-servers "localhost:9092"}))
 
 (defn make-id
   "构造一个id"
@@ -123,6 +116,11 @@
                  (= url))
             prog-scopes))
 
+  (def url-scopes (filter #(-> (second %) :asset_type (= "URL"))
+                          prog-scopes))
+
+  (def urls (map #(-> (second %) :asset_identifier) url-scopes))
+
   ;; in scopes infos
   (crux/q (crux/db my-node)
           '{:find [scopes]
@@ -138,4 +136,7 @@
   ;; 查看一个id的历史
   (crux/history my-node :hackerone.program/pixiv)
   ;; 根据历史id获得历史entity
-  (crux/entity (crux/db my-node) (:crux.db/id (first *1))))
+  (crux/entity (crux/db my-node) (:crux.db/id (first *1)))
+
+
+  )

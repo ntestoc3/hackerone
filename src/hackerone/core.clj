@@ -5,6 +5,7 @@
             [common.http :as http]
             [common.config :as config]
             [clj-http.client :as client]
+            [diehard.core :as dh]
             [cheshire.core :as json]
             [taoensso.timbre :as log]
             [com.rpl.specter :refer :all]
@@ -24,15 +25,31 @@
   [querys operation args]
   (let [body (get-graphql querys operation args)]
     (log/trace :hackerone-graphql-query args body)
-    (some-> (http/post
-             "https://hackerone.com/graphql"
-             (http/build-http-opt {:content-type :json
-                                   :body (json/encode body)
-                                   :cookie-policy :standard
-                                   :as :json
-                                   :headers {"Referer" "https://hackerone.com/directory/programs"}}))
-            :body
-            :data)))
+    (dh/with-retry {:retry-on Exception
+                    :max-retries 10
+                    :backoff-ms [500
+                                 50000]
+                    ;; 如果重试失败，则返回nil
+                    :fallback (fn [r e]
+                                (log/error :hackerone-graphql-query operation
+                                           "args:" args
+                                           "falied! result:" r
+                                           "exception:" e))
+                    ;; 出现异常，则执行
+                    :on-failed-attempt (fn [r e]
+                                         (log/warn :hackerone-graphql-query operation
+                                                   "args:" args
+                                                   "result:" r
+                                                   "error:" e ", retring..."))}
+      (some-> (http/post
+               "https://hackerone.com/graphql"
+               (http/build-http-opt {:content-type :json
+                                     :body (json/encode body)
+                                     :cookie-policy :standard
+                                     :as :json
+                                     :headers {"Referer" "https://hackerone.com/directory/programs"}}))
+              :body
+              :data))))
 
 (defgraphql directory-query "directory.graphql")
 (def program-query (with-redefs-fn {#'graphql-builder.generators.shared/argument-value
@@ -67,7 +84,7 @@
              (valid-assets asset-type))]}
   (log/info :query-dirs opt)
   (let [args (cond-> {:first first
-                      :secureOrderBy {:started_accepting_at {:_direction "DESC"}}
+                      :secureOrderBy {:reports {:resolved_count {:_direction "DESC"}}}
                       :where {"_and"
                               (cond-> []
                                 ibb (conj {"internet_bug_bounty" {"_eq" true}})
@@ -80,11 +97,11 @@
                                                                         {"is_archived" false}]}})
                                 active (conj {"_or" [{"submission_state" {"_eq" "open"}}
                                                      {"submission_state" {"_eq" "api_only"}}
-                                                     {"external_program" {"id" {"_is_null" false}}}]})
-                                :always (conj {"external_program" {"id" {"_is_null" true}}}
+                                                     {"external_program" {}}]})
+                                :always (conj {"_not" {"external_program" {}}}
                                               {"_or" [{"_and" [{"state" {"_neq" "sandboxed"}}
                                                                {"state" {"_neq" "soft_launched"}}]}
-                                                      {"external_program" {"id" {"_is_null" false}}}]}))}}
+                                                      {"external_program" {}}]}))}}
                cursor (assoc :cursor cursor))]
     (hackerone-graphql-query program-query :directory-query args)))
 
@@ -150,7 +167,7 @@
 
   (def ds (get-all-programs {:asset-type "URL"
                              :bounties true}
-                            1))
+                            500))
 
 
   (def s1 (get-scope-info (:handle (first ds))))
@@ -160,7 +177,7 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  #_(doseq [program (get-all-programs {:asset-type "URL"}
+  (doseq [program (get-all-programs {:asset-type "URL"}
                                     100
                                     50)]
     (Thread/sleep 50)
