@@ -177,7 +177,8 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (doseq [program (get-all-programs {:asset-type "URL"}
+  (doseq [program (get-all-programs {:asset-type "URL"
+                                     :bounties true}
                                     100
                                     50)]
     (Thread/sleep 50)

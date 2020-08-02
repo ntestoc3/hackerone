@@ -46,8 +46,17 @@
         id (make-id :hackerone.program handle)
         old-info (crux/entity (crux/db my-node) id)
         last-scope-date (:last-update scope-info)]
-    (when-not (submap? program old-info)
-      (log/info :save-program! "new program:" handle)
+    (log/info :save-program! "new program:" handle)
+    (crux/submit-tx
+     my-node
+     [[:crux.tx/put
+       (merge {:crux.db/id id
+               :last-scope-update last-scope-date}
+              (make-entity-type :program :hackerone)
+              program)
+       ]])
+    #_(when-not (submap? program old-info)
+        (log/info :save-program! "new program:" handle)
       (crux/submit-tx
        my-node
        [[:crux.tx/put
@@ -118,6 +127,16 @@
 
   (def url-scopes (filter #(-> (second %) :asset_type (= "URL"))
                           prog-scopes))
+
+  (defn get-url-handler
+    [u]
+    (some->> url-scopes
+             (filter #(-> (second %)
+                          :asset_identifier
+                          (= u)))
+             ffirst
+             name
+             (str "https://hackerone.com/")))
 
   (def urls (map #(-> (second %) :asset_identifier) url-scopes))
 
